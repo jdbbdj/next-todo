@@ -2,6 +2,13 @@ import React from 'react'
 import Image from 'next/image'
 import { Container, Box, useColorModeValue, Heading } from '@chakra-ui/react'
 import VoxelDog from '../components/threeglb/voxel-dog'
+import Loader from '../components/three-loader'
+import Section from '../components/section'
+import dynamic from 'next/dynamic'
+const LazyVoxelDog = dynamic(() => import('../components/threeglb/voxel-dog'), {
+  ssr: false,
+  loading: () => <Loader />
+})
 const Page = () => {
   return (
     <Container>
@@ -29,9 +36,28 @@ const Page = () => {
           </p>
         </Box>
       </Box>
-      <Box>
-        <VoxelDog />
-      </Box>
+      <Section delay="0.1">
+        <LazyVoxelDog />
+      </Section>
+
+      <Section>
+        <Container display={{ base: 'inline-block', md: 'flex' }}>
+          <Box>
+            <Image height="300px" width="475px" src="/images/Task2.png" />
+            <p align="center">
+              This app encourages you to think for the things that you wanna do,
+              and identify the steps towards it.
+            </p>
+          </Box>
+          <Box>
+            <Image height="300px" width="475px" src="/images/Task3.png" />
+            <p align="center">
+              Clarity, and mental-breakthrough are both benefits of done tasks,
+              due to dopamine brain chemicals
+            </p>
+          </Box>
+        </Container>
+      </Section>
     </Container>
   )
 }
