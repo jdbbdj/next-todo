@@ -12,7 +12,7 @@ import {
 } from '@chakra-ui/react'
 import styled from '@emotion/styled'
 import NextLink from 'next/link'
-import DatePicker from 'react-datepicker'
+
 import { useState } from 'react'
 
 const CustomFormControl = styled(FormControl)`
@@ -101,10 +101,14 @@ const FormComponent = ({ isLogin, formik }) => {
             </CustomFormControl>
             <CustomFormControl>
               <FormLabel htmlFor="email">Task description</FormLabel>
-              <DatePicker
-                selected={startDate}
-                onChange={date => setStartDate(date)}
-              />
+              <Input type="date" />
+              {touched.password && errors.password ? (
+                <div style={{ color: 'red' }}>{errors.password}</div>
+              ) : null}
+            </CustomFormControl>
+            <CustomFormControl>
+              <FormLabel htmlFor="email">Task description</FormLabel>
+              <Input type="date" />
               {touched.password && errors.password ? (
                 <div style={{ color: 'red' }}>{errors.password}</div>
               ) : null}

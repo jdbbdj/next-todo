@@ -6,14 +6,17 @@ import {
   ModalCloseButton,
   useDisclosure,
   Button,
-  Container
+  Container,
+  Grid,
+  GridItem
 } from '@chakra-ui/react'
 import { useFormik } from 'formik'
 import INITIAL_VALUES from '../components/form/models/loginModel'
 import loginValidator from '../components/form/validator/loginValidator'
 import FormComponent from '../components/form'
 import { useRouter } from 'next/router'
-import { useState } from 'react'
+import { useState, useMemo } from 'react'
+import TodoList from '../components/TodoList'
 
 const TodoApp = () => {
   const { isOpen, onOpen, onClose } = useDisclosure()
@@ -32,10 +35,26 @@ const TodoApp = () => {
     validationSchema: loginValidator,
     onSubmit: loginClick
   })
+
   return (
     <>
-      <Container>
-        <Button onClick={onOpen}>Open Modal</Button>
+      <Container maxW="xlg">
+        <Grid
+          templateColumns="repeat(5, 1fr)"
+          templateRows="repeat(7, 1fr)"
+          gap={6}
+        >
+          <GridItem w="100%" h="10" />
+          <GridItem w="100%" h="10" />
+          <GridItem w="100%" h="10" />
+          <GridItem w="100%" h="10" />
+          <GridItem w="100%" h="10">
+            <Button onClick={onOpen}>Create Task</Button>
+          </GridItem>
+          <GridItem colSpan={5} rowSpan={6}>
+            <TodoList />
+          </GridItem>
+        </Grid>
       </Container>
 
       <Modal isOpen={isOpen} onClose={onClose}>
