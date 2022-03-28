@@ -10,6 +10,7 @@ const Layout = ({ children, router }) => {
         <link rel="icon" type="image/png" href="/favicon.ico" />
       </Head>
       <Navbar path={router.asPath} />
+
       <Container maxW="container.md" pt={14}>
         {children}
       </Container>

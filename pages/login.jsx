@@ -11,7 +11,9 @@ const Login = () => {
   const [initialValues, setInitialValues] = useState(INITIAL_VALUES)
 
   const loginClick = values => {
-    router.push('/')
+    if (values.username === 'james' && values.password === 'test') {
+      router.push('/todo-app')
+    }
   }
 
   const formik = useFormik({
