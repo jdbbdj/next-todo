@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { dummyData } from '../../utils/data'
+import SearchField from '../SearchField'
 import ItemPage from './ItemPage'
 import Pagination from './Pagination'
 
@@ -9,9 +10,12 @@ const TodoList = () => {
   const [loading, setLoading] = useState(false)
   const [currentPage, setCurrentPage] = useState(1)
   const [postperPage, setPostsPerPage] = useState(5)
+  const [searchInput, setSearchInput] = useState('')
+  const [searchReports, setSearchReports] = useState([])
 
   useEffect(() => {
     setPosts(INITIAL_DATA)
+    setSearchReports(posts)
   }, [posts])
 
   const indexOfLastPost = currentPage * postperPage
@@ -20,7 +24,14 @@ const TodoList = () => {
 
   return (
     <>
-      <ItemPage posts={currentPosts} />
+      <SearchField
+        searchInput={searchInput}
+        setSearchInput={setSearchInput}
+        searchReports={searchReports}
+        setSearchReports={setSearchReports}
+        setPosts={setPosts}
+      />
+      <ItemPage posts={searchReports} />
       <Pagination
         postperPage={postperPage}
         totalPosts={posts.length}
