@@ -12,26 +12,29 @@ const TodoList = () => {
   const [postperPage, setPostsPerPage] = useState(5)
   const [searchInput, setSearchInput] = useState('')
   const [searchReports, setSearchReports] = useState([])
+  const [selectedReports, setSelectedReports] = useState([])
 
   useEffect(() => {
     setPosts(INITIAL_DATA)
     setSearchReports(posts)
+    setSelectedReports(posts)
   }, [posts])
 
   const indexOfLastPost = currentPage * postperPage
   const indexOfFirstPost = indexOfLastPost - postperPage
-  const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost)
+  const currentPosts = searchInput
+    ? searchReports.slice(indexOfFirstPost, indexOfLastPost)
+    : selectedReports.slice(indexOfFirstPost, indexOfLastPost)
 
   return (
     <>
       <SearchField
+        items={selectedReports}
         searchInput={searchInput}
-        setSearchInput={setSearchInput}
-        searchReports={searchReports}
         setSearchReports={setSearchReports}
-        setPosts={setPosts}
+        setSearchInput={setSearchInput}
       />
-      <ItemPage posts={searchReports} />
+      <ItemPage posts={currentPosts} />
       <Pagination
         postperPage={postperPage}
         totalPosts={posts.length}
