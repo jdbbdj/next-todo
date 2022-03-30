@@ -1,5 +1,5 @@
 import * as Yup from 'yup'
-import { fileNameReqex } from '../../../utils/helper'
+import { fileNameReqex, passWordReqex } from '../../../utils/helper'
 const registerValidator = Yup.object().shape({
   name: Yup.string()
     .matches(fileNameReqex, 'Invalid input')
@@ -8,8 +8,13 @@ const registerValidator = Yup.object().shape({
     .email('Must be a valid email')
     .required('Email is required'),
   password: Yup.string()
-    .matches(fileNameReqex, 'Invalid input')
-    .required('Field is required'),
+
+    .required('Field is required')
+    .matches(
+      passWordReqex,
+      'Must contain a capital letter, a lower case letter, a number, and a special character'
+    )
+    .min(8, 'Must be minimum of 8 digits'),
   password_confirmation: Yup.string().when('password', {
     is: val => (val && val.length > 0 ? true : false),
     then: Yup.string().oneOf(

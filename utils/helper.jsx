@@ -1,5 +1,7 @@
 import moment from 'moment'
 export const fileNameReqex = /^[A-Za-z0-9_]+$/
+export const passWordReqex =
+  /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/
 
 export const dateFormatter = date => {
   const dataObj = date

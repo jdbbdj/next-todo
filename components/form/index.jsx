@@ -37,12 +37,12 @@ const FormComponent = ({ isLogin, isTodo, isRegister, formik }) => {
               <FormLabel htmlFor="email">Email address</FormLabel>
               <Input
                 type="text"
-                name="username"
-                id="username"
-                {...getFieldProps('username')}
+                name="email"
+                id="email"
+                {...getFieldProps('email')}
               />
-              {touched.username && errors.username ? (
-                <div style={{ color: 'red' }}>{errors.username}</div>
+              {touched.email && errors.email ? (
+                <div style={{ color: 'red' }}>{errors.email}</div>
               ) : null}
             </CustomFormControl>
             <CustomFormControl>
@@ -77,7 +77,7 @@ const FormComponent = ({ isLogin, isTodo, isRegister, formik }) => {
         {isRegister && (
           <Box>
             <CustomFormControl>
-              <FormLabel htmlFor="name">Email address</FormLabel>
+              <FormLabel htmlFor="name">Name</FormLabel>
               <Input
                 type="text"
                 name="name"
@@ -101,7 +101,7 @@ const FormComponent = ({ isLogin, isTodo, isRegister, formik }) => {
               ) : null}
             </CustomFormControl>
             <CustomFormControl>
-              <FormLabel htmlFor="password">Email address</FormLabel>
+              <FormLabel htmlFor="password">Password</FormLabel>
               <Input
                 type="password"
                 name="password"
@@ -115,7 +115,7 @@ const FormComponent = ({ isLogin, isTodo, isRegister, formik }) => {
 
             <CustomFormControl>
               <FormLabel htmlFor="password_confirmation">
-                Email address
+                Password Confirmation
               </FormLabel>
               <Input
                 type="password"

@@ -1,4 +1,4 @@
 export default {
-  username: 'james',
+  email: '',
   password: ''
 }
