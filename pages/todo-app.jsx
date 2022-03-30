@@ -8,19 +8,26 @@ import {
   Button,
   Container,
   Grid,
-  GridItem
+  GridItem,
+  useToast
 } from '@chakra-ui/react'
 import { useFormik } from 'formik'
 import INITIAL_VALUES from '../components/form/models/loginModel'
 import loginValidator from '../components/form/validator/loginValidator'
 import FormComponent from '../components/form'
 import { useRouter } from 'next/router'
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useEffect } from 'react'
 import TodoList from '../components/TodoList'
+import { fetchTasks } from '../redux/actions/taskAction'
+import { useDispatch, useSelector } from 'react-redux'
+
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL
 
 const TodoApp = () => {
+  const dispatch = useDispatch()
   const { isOpen, onOpen, onClose } = useDisclosure()
   const router = useRouter()
+  const toast = useToast()
   const [initialValues, setInitialValues] = useState(INITIAL_VALUES)
 
   const loginClick = values => {
@@ -28,6 +35,12 @@ const TodoApp = () => {
       router.push('/todo-app')
     }
   }
+
+  useEffect(() => {
+    dispatch(fetchTasks())
+  }, [])
+
+  console.log(BASE_URL)
 
   const formik = useFormik({
     initialValues: initialValues,

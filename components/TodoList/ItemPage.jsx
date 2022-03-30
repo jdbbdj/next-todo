@@ -20,7 +20,7 @@ const ItemPage = ({ posts }) => {
         </TableCaption>
         <Thead>
           <Tr>
-            <Th>Title</Th>
+            <Th>Task Name</Th>
             <Th>Description</Th>
             <Th>Start Date</Th>
             <Th>End Date</Th>

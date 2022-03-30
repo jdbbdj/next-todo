@@ -76,7 +76,7 @@ const FormComponent = ({ isLogin, formik }) => {
         ) : (
           <Box>
             <CustomFormControl>
-              <FormLabel htmlFor="email">Task title</FormLabel>
+              <FormLabel htmlFor="email">Task name</FormLabel>
               <Input
                 type="text"
                 name="username"
