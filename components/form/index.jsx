@@ -24,14 +24,14 @@ const CustomContainer = styled(Container)`
   margin-top: 20px;
 `
 
-const FormComponent = ({ isLogin, formik }) => {
+const FormComponent = ({ isLogin, isTodo, isRegister, formik }) => {
   const { values, handleChange, handleSubmit, errors, touched, getFieldProps } =
     formik
   const [startDate, setStartDate] = useState(new Date())
   return (
     <CustomContainer maxW="container.sm">
       <form onSubmit={handleSubmit}>
-        {isLogin ? (
+        {isLogin && (
           <Box>
             <CustomFormControl>
               <FormLabel htmlFor="email">Email address</FormLabel>
@@ -62,18 +62,76 @@ const FormComponent = ({ isLogin, formik }) => {
               justify="space-between"
             >
               <Box flexGrow={1}>
-                <NextLink href="/register">
+                <NextLink href="/register" passHref>
                   <Link>No account?</Link>
                 </NextLink>
               </Box>
               <Box flexGrow={1}>
-                <NextLink href="/register" align="right">
+                <NextLink href="/register" align="right" passHref>
                   <Link>Forgot password?</Link>
                 </NextLink>
               </Box>
             </CustomFormControl>
           </Box>
-        ) : (
+        )}
+        {isRegister && (
+          <Box>
+            <CustomFormControl>
+              <FormLabel htmlFor="name">Email address</FormLabel>
+              <Input
+                type="text"
+                name="name"
+                id="name"
+                {...getFieldProps('name')}
+              />
+              {touched.name && errors.name ? (
+                <div style={{ color: 'red' }}>{errors.name}</div>
+              ) : null}
+            </CustomFormControl>
+            <CustomFormControl>
+              <FormLabel htmlFor="email">Email address</FormLabel>
+              <Input
+                type="text"
+                name="email"
+                id="email"
+                {...getFieldProps('email')}
+              />
+              {touched.email && errors.email ? (
+                <div style={{ color: 'red' }}>{errors.email}</div>
+              ) : null}
+            </CustomFormControl>
+            <CustomFormControl>
+              <FormLabel htmlFor="password">Email address</FormLabel>
+              <Input
+                type="password"
+                name="password"
+                id="password"
+                {...getFieldProps('password')}
+              />
+              {touched.password && errors.password ? (
+                <div style={{ color: 'red' }}>{errors.password}</div>
+              ) : null}
+            </CustomFormControl>
+
+            <CustomFormControl>
+              <FormLabel htmlFor="password_confirmation">
+                Email address
+              </FormLabel>
+              <Input
+                type="password"
+                name="password_confirmation"
+                id="password_confirmation"
+                {...getFieldProps('password_confirmation')}
+              />
+              {touched.password_confirmation && errors.password_confirmation ? (
+                <div style={{ color: 'red' }}>
+                  {errors.password_confirmation}
+                </div>
+              ) : null}
+            </CustomFormControl>
+          </Box>
+        )}
+        {isTodo && (
           <Box>
             <CustomFormControl>
               <FormLabel htmlFor="email">Task name</FormLabel>

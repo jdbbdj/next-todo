@@ -5,6 +5,7 @@ import INITIAL_VALUES from '../components/form/models/loginModel'
 import loginValidator from '../components/form/validator/loginValidator'
 import { useState } from 'react'
 import { useRouter } from 'next/router'
+import { Heading } from '@chakra-ui/react'
 
 const Login = () => {
   const router = useRouter()
@@ -25,6 +26,7 @@ const Login = () => {
 
   return (
     <Section>
+      <Heading as="h1">Login</Heading>
       <FormComponent isLogin={true} formik={formik} />
     </Section>
   )

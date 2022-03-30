@@ -1,20 +1,16 @@
 import React from 'react'
-import {
-  Table,
-  Thead,
-  Tbody,
-  Tfoot,
-  Tr,
-  Th,
-  Td,
-  TableCaption
-} from '@chakra-ui/react'
+import { Table, Thead, Tbody, Tr, Th, Td, TableCaption } from '@chakra-ui/react'
 import ActionComponents from '../ActionComponents'
 
 const ItemPage = ({ posts }) => {
   return (
     <>
-      <Table variant="simple" height="350px" width="750px">
+      <Table
+        height="350px"
+        width="750px"
+        variant="striped"
+        colorScheme="twitter"
+      >
         <TableCaption>
           I highly encourage you to finish the task before the end date
         </TableCaption>
@@ -27,9 +23,10 @@ const ItemPage = ({ posts }) => {
             <Th>Action</Th>
           </Tr>
         </Thead>
+
         <Tbody>
           {posts.map(item => (
-            <Tr key={item.tasktitle}>
+            <Tr key={item.id}>
               <Td>{item.tasktitle}</Td>
               <Td>{item.description}</Td>
               <Td>{item.startdate}</Td>
@@ -37,7 +34,6 @@ const ItemPage = ({ posts }) => {
               <Td>
                 <ActionComponents />
               </Td>
-              <td></td>
             </Tr>
           ))}
         </Tbody>

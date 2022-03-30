@@ -41,17 +41,16 @@ const Navbar = props => {
   const router = useRouter()
   console.log(router.asPath)
   return (
-    <>
+    <Box
+      bg={useColorModeValue('blue.50', 'gray.700')}
+      position="fixed"
+      as="nav"
+      w="100%"
+      style={{ backdropFilter: 'blur(10px)' }}
+      zIndex={1}
+    >
       {router.asPath !== '/todo-app' ? (
-        <Box
-          position="fixed"
-          as="nav"
-          w="100%"
-          bg={useColorModeValue('blue.50', 'gray.700')}
-          style={{ backdropFilter: 'blur(10px)' }}
-          zIndex={1}
-          {...props}
-        >
+        <Box {...props}>
           <Container
             display="flex"
             p={2}
@@ -111,15 +110,7 @@ const Navbar = props => {
           </Container>
         </Box>
       ) : (
-        <Box
-          position="fixed"
-          as="nav"
-          w="100%"
-          bg={useColorModeValue('blue.50', 'gray.700')}
-          style={{ backdropFilter: 'blur(10px)' }}
-          zIndex={1}
-          {...props}
-        >
+        <Box {...props}>
           <Container
             display="flex"
             p={2}
@@ -161,7 +152,9 @@ const Navbar = props => {
                       <MenuItem as={Link}>Stats</MenuItem>
                     </NextLink>
                     <NextLink href="https://github.com/jdbbdj" passHref>
-                      <MenuItem as={Link}>Visit developer</MenuItem>
+                      <MenuItem as={Link} passHref>
+                        Visit developer
+                      </MenuItem>
                     </NextLink>
                   </MenuList>
                 </Menu>
@@ -170,7 +163,7 @@ const Navbar = props => {
           </Container>
         </Box>
       )}
-    </>
+    </Box>
   )
 }
 
