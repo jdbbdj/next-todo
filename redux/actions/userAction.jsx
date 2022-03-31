@@ -15,12 +15,13 @@ export const userRegister = user => async dispatch => {
   }
 }
 
-export const userLogin = user => async dispatch => {
+export const userLogin = (user, callback) => async dispatch => {
   try {
     await APICall(
       dispatch,
       axios.post(`${BASE_URL}/auth/login`, user),
-      USER_LOGIN
+      USER_LOGIN,
+      callback
     )
   } catch (e) {
     console.log(e)

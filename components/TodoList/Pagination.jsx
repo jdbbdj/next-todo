@@ -12,8 +12,6 @@ const CustomGridItem = styled(GridItem)`
 `
 
 const Pagination = ({ postperPage, totalPosts, setCurrentPage }) => {
-  console.log(postperPage)
-  console.log(totalPosts)
   const pageNumbers = []
   for (let i = 1; i <= Math.ceil(totalPosts / postperPage); i++) {
     pageNumbers.push(i)

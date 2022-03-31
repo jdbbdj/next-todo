@@ -6,7 +6,8 @@ const initialState = {
   message: '',
   success: false,
   loading: false,
-  fail: false
+  fail: false,
+  isLoggedin: false
 }
 
 const userReducer = (state = initialState, action) => {
@@ -43,9 +44,10 @@ const userReducer = (state = initialState, action) => {
         success: false,
         loading: true,
         fail: false,
-        token: action.payload.access_token,
-        name: action.payload.user.name,
-        email: action.payload.user.email
+        token: action.payload.token.original.access_token,
+        user: action.payload.token.original.user.name,
+        email: action.payload.token.original.user.email,
+        isLoggedin: true
       }
     default: // need this for default case
       return state

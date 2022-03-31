@@ -3,13 +3,10 @@ import {
   ModalContent,
   ModalHeader,
   ModalBody,
-  ModalCloseButton,
-  useDisclosure,
   Button,
   Container,
   Grid,
-  GridItem,
-  useToast
+  GridItem
 } from '@chakra-ui/react'
 import { useFormik } from 'formik'
 import INITIAL_VALUES from '../components/form/models/loginModel'
@@ -19,13 +16,17 @@ import { useRouter } from 'next/router'
 import { useState, useMemo, useEffect } from 'react'
 import TodoList from '../components/TodoList'
 import { CloseIcon } from '@chakra-ui/icons'
+import { useDispatch, useSelector } from 'react-redux'
+
+import NotifyComponent from '../components/NotifyComponent'
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL
 
 const TodoApp = () => {
   const router = useRouter()
-  const toast = useToast()
+
   const [initialValues, setInitialValues] = useState(INITIAL_VALUES)
+  const isLoggedinSelector = useSelector(state => state.userReducer.isLoggedin)
 
   const [modal, setModal] = useState({
     generate: false,
@@ -49,8 +50,6 @@ const TodoApp = () => {
     }
   }
 
-  console.log(BASE_URL)
-
   const formik = useFormik({
     initialValues: initialValues,
     validateOnChange: true,
@@ -62,38 +61,49 @@ const TodoApp = () => {
 
   return (
     <>
-      <Container maxW="xlg">
-        <Grid
-          templateColumns="repeat(5, 1fr)"
-          templateRows="repeat(7, 1fr)"
-          gap={6}
-        >
-          <GridItem w="100%" h="10" />
-          <GridItem w="100%" h="10" />
-          <GridItem w="100%" h="10" />
-          <GridItem w="100%" h="10" />
-          <GridItem w="100%" h="10">
-            <Button onClick={e => toggleModal('generate', true)}>
-              Create Task
-            </Button>
-          </GridItem>
-          <GridItem colSpan={5} rowSpan={6}>
-            <TodoList />
-          </GridItem>
-        </Grid>
-      </Container>
+      {isLoggedinSelector && (
+        <>
+          <Container maxW="xlg">
+            <Grid
+              templateColumns="repeat(5, 1fr)"
+              templateRows="repeat(7, 1fr)"
+              gap={6}
+            >
+              <GridItem w="100%" h="10" />
+              <GridItem w="100%" h="10" />
+              <GridItem w="100%" h="10" />
+              <GridItem w="100%" h="10" />
+              <GridItem w="100%" h="10">
+                <Button onClick={e => toggleModal('generate', true)}>
+                  Create Task
+                </Button>
+              </GridItem>
+              <GridItem colSpan={5} rowSpan={6}>
+                <TodoList />
+              </GridItem>
+            </Grid>
+          </Container>
 
-      <Modal isOpen={generate}>
-        <ModalContent>
-          <ModalHeader>Modal Title</ModalHeader>
-          <GridItem align="right" mr={6} cursor="pointer" p={2}>
-            <CloseIcon onClick={e => toggleModal('generate', false)} />
-          </GridItem>
-          <ModalBody>
-            <FormComponent isTodo={true} formik={formik} />
-          </ModalBody>
-        </ModalContent>
-      </Modal>
+          <Modal isOpen={generate}>
+            <ModalContent>
+              <ModalHeader>Modal Title</ModalHeader>
+              <GridItem align="right" mr={6} cursor="pointer" p={2}>
+                <CloseIcon onClick={e => toggleModal('generate', false)} />
+              </GridItem>
+              <ModalBody>
+                <FormComponent isTodo={true} formik={formik} />
+              </ModalBody>
+            </ModalContent>
+          </Modal>
+        </>
+      )}
+      {!isLoggedinSelector && (
+        <NotifyComponent
+          isBasic={false}
+          isFailed={true}
+          message="Token not found, Please log in again"
+        />
+      )}
     </>
   )
 }

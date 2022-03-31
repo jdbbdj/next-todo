@@ -6,20 +6,23 @@ import Pagination from './Pagination'
 import { Button } from '@chakra-ui/react'
 import { fetchTasks } from '../../redux/actions/taskAction'
 import { useDispatch, useSelector } from 'react-redux'
+import { useToastHook } from '../ToastComponent.jsx'
 
 const TodoList = () => {
   const INITIAL_DATA = dummyData
   const logs = useSelector(state => state.taskReducer.tasks)
+
   const [posts, setPosts] = useState([])
   const [currentPage, setCurrentPage] = useState(1)
   const [postperPage, setPostsPerPage] = useState(5)
   const [searchInput, setSearchInput] = useState('')
   const [searchReports, setSearchReports] = useState([])
   const [selectedReports, setSelectedReports] = useState([])
+  const [state, newToast] = useToastHook()
   const dispatch = useDispatch()
 
   useEffect(() => {
-    dispatch(fetchTasks())
+    dispatch(fetchTasks(newToast))
   }, [])
 
   useEffect(() => {
