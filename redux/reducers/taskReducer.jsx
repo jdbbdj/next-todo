@@ -44,6 +44,42 @@ const taskReducer = (state = initialState, action) => {
         fail: false,
         message: action.payload.message
       }
+
+    case 'TASK_UPDATE_ERROR':
+      return {
+        ...state,
+        success: false,
+        loading: false,
+        fail: true
+      }
+    case 'TASK_UPDATE_LOADING':
+      return { ...state, success: false, loading: true, fail: false }
+    case 'TASK_UPDATE_SUCCESS':
+      return {
+        ...state,
+        success: false,
+        loading: true,
+        fail: false,
+        message: action.payload.message
+      }
+
+    case 'TASK_GENERATE_ERROR':
+      return {
+        ...state,
+        success: false,
+        loading: false,
+        fail: true
+      }
+    case 'TASK_GENERATE_LOADING':
+      return { ...state, success: false, loading: true, fail: false }
+    case 'TASK_GENERATE_SUCCESS':
+      return {
+        ...state,
+        success: false,
+        loading: true,
+        fail: false,
+        message: action.payload.message
+      }
     default: // need this for default case
       return state
   }

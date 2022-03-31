@@ -22,7 +22,7 @@ export const APICall = async (dispatch, endpoint, action, callback) => {
       type: action.concat(TYPE_SUCCESS),
       payload: response.data
     })
-    callback({ message: 'Success', status: 'success' })
+    callback({ message: response.data.message, status: 'success' })
   } catch (err) {
     dispatch({ type: action.concat(TYPE_FAIL) })
     callback({ message: getError(err)[0], status: 'error' })

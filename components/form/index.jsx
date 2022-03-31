@@ -8,7 +8,8 @@ import {
   Button,
   Box,
   Link,
-  Divider
+  Divider,
+  Switch
 } from '@chakra-ui/react'
 import styled from '@emotion/styled'
 import NextLink from 'next/link'
@@ -133,6 +134,15 @@ const FormComponent = ({ isLogin, isTodo, isRegister, formik }) => {
         )}
         {isTodo && (
           <Box>
+            <Switch
+              type="checkbox"
+              name="done"
+              id="done"
+              {...getFieldProps('done')}
+            />
+            {touched.done && errors.done ? (
+              <div style={{ color: 'red' }}>{errors.done}</div>
+            ) : null}
             <CustomFormControl>
               <FormLabel htmlFor="tasktitle">Task name</FormLabel>
               <Input
@@ -148,7 +158,7 @@ const FormComponent = ({ isLogin, isTodo, isRegister, formik }) => {
             <CustomFormControl>
               <FormLabel htmlFor="description">Task description</FormLabel>
               <Input
-                type="password"
+                type="text"
                 name="description"
                 id="description"
                 {...getFieldProps('description')}

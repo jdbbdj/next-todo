@@ -16,10 +16,15 @@ const ActionComponents = ({ item, toggleModal, modal }) => {
     toggleModal('modalData', item)
     console.log(modalData)
   }
+
+  const handleUpdate = item => {
+    toggleModal('generate', true)
+    toggleModal('modalData', item)
+  }
   return (
     <Grid templateColumns={`repeat(6, 1fr)`}>
       <GridItem w="200%" colSpan={2}>
-        <EditIcon onClick={e => toggleModal('generate', true)} />
+        <EditIcon onClick={e => handleUpdate(item)} />
       </GridItem>
       <GridItem w="200%" onClick={e => handleView(item)} colSpan={2}>
         <ViewIcon />

@@ -20,7 +20,11 @@ import { CloseIcon } from '@chakra-ui/icons'
 import { useDispatch, useSelector } from 'react-redux'
 import { useToastHook } from '../components/ToastComponent.jsx'
 import NotifyComponent from '../components/NotifyComponent'
-import { deleteTask } from '../redux/actions/taskAction'
+import {
+  deleteTask,
+  updateTask,
+  generateTask
+} from '../redux/actions/taskAction'
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL
 
@@ -49,7 +53,22 @@ const TodoApp = () => {
   }
 
   const loginClick = values => {
-    console.log(values)
+    let arr
+    values['id'] = modalData.id
+
+    if (values.id == null || values.id == 'undefined') {
+      dispatch(generateTask(values, newToast))
+      toggleModal('generate', false)
+      toggleModal('deleteReport', false)
+      toggleModal('view', false)
+      toggleModal('modalData', {})
+    } else {
+      dispatch(updateTask(values, newToast))
+      toggleModal('generate', false)
+      toggleModal('deleteReport', false)
+      toggleModal('view', false)
+      toggleModal('modalData', {})
+    }
   }
 
   const formik = useFormik({
@@ -65,6 +84,7 @@ const TodoApp = () => {
     toggleModal('generate', false)
     toggleModal('deleteReport', false)
     toggleModal('view', false)
+    toggleModal('modalData', {})
     resetForm()
   }
 
