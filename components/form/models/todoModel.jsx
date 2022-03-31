@@ -1,5 +1,5 @@
 export default {
-  tasktitle: 'james',
+  tasktitle: '',
   description: '',
   startdate: '',
   enddate: '',

@@ -6,25 +6,28 @@ import {
   Button,
   Container,
   Grid,
-  GridItem
+  GridItem,
+  useColorModeValue
 } from '@chakra-ui/react'
 import { useFormik } from 'formik'
-import INITIAL_VALUES from '../components/form/models/loginModel'
-import loginValidator from '../components/form/validator/loginValidator'
+import INITIAL_VALUES from '../components/form/models/todoModel'
+import todoValidator from '../components/form/validator/todoValidator'
 import FormComponent from '../components/form'
 import { useRouter } from 'next/router'
 import { useState, useMemo, useEffect } from 'react'
 import TodoList from '../components/TodoList'
 import { CloseIcon } from '@chakra-ui/icons'
 import { useDispatch, useSelector } from 'react-redux'
-
+import { useToastHook } from '../components/ToastComponent.jsx'
 import NotifyComponent from '../components/NotifyComponent'
+import { deleteTask } from '../redux/actions/taskAction'
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL
 
 const TodoApp = () => {
   const router = useRouter()
-
+  const dispatch = useDispatch()
+  const [state, newToast] = useToastHook()
   const [initialValues, setInitialValues] = useState(INITIAL_VALUES)
   const isLoggedinSelector = useSelector(state => state.userReducer.isLoggedin)
 
@@ -34,8 +37,9 @@ const TodoApp = () => {
     processing: false,
     view: false,
     edit: false,
-    modalData: []
+    modalData: {}
   })
+  const { generate, deleteReport, processing, modalData, edit, view } = modal
 
   const toggleModal = (id, value) => {
     setModal(prev => ({
@@ -45,19 +49,32 @@ const TodoApp = () => {
   }
 
   const loginClick = values => {
-    if (values.username === 'james' && values.password === 'test') {
-      router.push('/todo-app')
-    }
+    console.log(values)
   }
 
   const formik = useFormik({
-    initialValues: initialValues,
+    initialValues: modalData ? modalData : initialValues,
     validateOnChange: true,
-    validationSchema: loginValidator,
+    validationSchema: todoValidator,
     onSubmit: loginClick
   })
 
-  const { generate, deleteReport, processing, modalData, edit, view } = modal
+  const { resetForm } = formik
+
+  const handleCloseModal = () => {
+    toggleModal('generate', false)
+    toggleModal('deleteReport', false)
+    toggleModal('view', false)
+    resetForm()
+  }
+
+  const handleDeleteTask = id => {
+    dispatch(deleteTask(id, newToast))
+    toggleModal('generate', false)
+    toggleModal('deleteReport', false)
+    toggleModal('view', false)
+    resetForm()
+  }
 
   return (
     <>
@@ -79,7 +96,7 @@ const TodoApp = () => {
                 </Button>
               </GridItem>
               <GridItem colSpan={5} rowSpan={6}>
-                <TodoList />
+                <TodoList toggleModal={toggleModal} modal={modal} />
               </GridItem>
             </Grid>
           </Container>
@@ -88,10 +105,110 @@ const TodoApp = () => {
             <ModalContent>
               <ModalHeader>Modal Title</ModalHeader>
               <GridItem align="right" mr={6} cursor="pointer" p={2}>
-                <CloseIcon onClick={e => toggleModal('generate', false)} />
+                <CloseIcon onClick={handleCloseModal} />
               </GridItem>
               <ModalBody>
                 <FormComponent isTodo={true} formik={formik} />
+              </ModalBody>
+            </ModalContent>
+          </Modal>
+
+          <Modal isOpen={view}>
+            <ModalContent>
+              <ModalHeader>View Task</ModalHeader>
+              <GridItem align="right" mr={6} cursor="pointer" p={2}>
+                <CloseIcon onClick={handleCloseModal} />
+              </GridItem>
+              <ModalBody>
+                <Grid
+                  templateColumns="repeat(4, 1fr)"
+                  templateRows="repeat(8, 1fr)"
+                >
+                  <GridItem colSpan={1} rowSpan={2}>
+                    Task Name
+                  </GridItem>
+                  <GridItem colSpan={2} rowSpan={2}>
+                    {modalData.tasktitle}
+                  </GridItem>
+                  <GridItem colSpan={1} rowSpan={2}>
+                    Task Name
+                  </GridItem>
+                  <GridItem colSpan={1} rowSpan={2}>
+                    Description
+                  </GridItem>
+                  <GridItem colSpan={3} rowSpan={2}>
+                    {modalData.description}
+                  </GridItem>
+                  <GridItem colSpan={1} rowSpan={2}>
+                    Start Date
+                  </GridItem>
+                  <GridItem colSpan={3} rowSpan={2}>
+                    {modalData.startdate}
+                  </GridItem>
+                  <GridItem colSpan={1} rowSpan={2}>
+                    Target End Date
+                  </GridItem>
+                  <GridItem colSpan={3} rowSpan={2}>
+                    {modalData.enddate}
+                  </GridItem>
+                </Grid>
+              </ModalBody>
+            </ModalContent>
+          </Modal>
+
+          <Modal isOpen={deleteReport}>
+            <ModalContent>
+              <ModalHeader>Delete this Task?</ModalHeader>
+              <GridItem align="right" mr={6} cursor="pointer" p={2}>
+                <CloseIcon onClick={handleCloseModal} />
+              </GridItem>
+              <ModalBody>
+                <Grid
+                  templateColumns="repeat(4, 1fr)"
+                  templateRows="repeat(9, 1fr)"
+                >
+                  <GridItem colSpan={1} rowSpan={2}>
+                    Task Name
+                  </GridItem>
+                  <GridItem colSpan={2} rowSpan={2}>
+                    {modalData.tasktitle}
+                  </GridItem>
+                  <GridItem colSpan={1} rowSpan={2}>
+                    Task Name
+                  </GridItem>
+                  <GridItem colSpan={1} rowSpan={2}>
+                    Description
+                  </GridItem>
+                  <GridItem colSpan={3} rowSpan={2}>
+                    {modalData.description}
+                  </GridItem>
+                  <GridItem colSpan={1} rowSpan={2}>
+                    Start Date
+                  </GridItem>
+                  <GridItem colSpan={3} rowSpan={2}>
+                    {modalData.startdate}
+                    1997-01-02
+                  </GridItem>
+                  <GridItem colSpan={1} rowSpan={2}>
+                    Target End Date
+                  </GridItem>
+                  <GridItem colSpan={3} rowSpan={2}>
+                    {modalData.enddate}
+                    1997-01-02
+                  </GridItem>
+                  <GridItem colSpan={2} rowSpan={1} align="center">
+                    <Button>Cancel</Button>
+                  </GridItem>
+                  <GridItem colSpan={2} rowSpan={1} align="center">
+                    <Button
+                      bg={useColorModeValue('black', 'white')}
+                      color={useColorModeValue('white', 'black')}
+                      onClick={e => handleDeleteTask(modalData.id)}
+                    >
+                      Delete
+                    </Button>
+                  </GridItem>
+                </Grid>
               </ModalBody>
             </ModalContent>
           </Modal>

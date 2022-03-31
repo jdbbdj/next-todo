@@ -134,41 +134,51 @@ const FormComponent = ({ isLogin, isTodo, isRegister, formik }) => {
         {isTodo && (
           <Box>
             <CustomFormControl>
-              <FormLabel htmlFor="email">Task name</FormLabel>
+              <FormLabel htmlFor="tasktitle">Task name</FormLabel>
               <Input
                 type="text"
-                name="username"
-                id="username"
-                {...getFieldProps('username')}
+                name="tasktitle"
+                id="tasktitle"
+                {...getFieldProps('tasktitle')}
               />
-              {touched.username && errors.username ? (
-                <div style={{ color: 'red' }}>{errors.username}</div>
+              {touched.tasktitle && errors.tasktitle ? (
+                <div style={{ color: 'red' }}>{errors.tasktitle}</div>
               ) : null}
             </CustomFormControl>
             <CustomFormControl>
-              <FormLabel htmlFor="email">Task description</FormLabel>
+              <FormLabel htmlFor="description">Task description</FormLabel>
               <Input
                 type="password"
-                name="password"
-                id="password"
-                {...getFieldProps('password')}
+                name="description"
+                id="description"
+                {...getFieldProps('description')}
               />
-              {touched.password && errors.password ? (
-                <div style={{ color: 'red' }}>{errors.password}</div>
+              {touched.description && errors.description ? (
+                <div style={{ color: 'red' }}>{errors.description}</div>
               ) : null}
             </CustomFormControl>
             <CustomFormControl>
-              <FormLabel htmlFor="email">Task description</FormLabel>
-              <Input type="date" />
-              {touched.password && errors.password ? (
-                <div style={{ color: 'red' }}>{errors.password}</div>
+              <FormLabel htmlFor="startdate">Task start date</FormLabel>
+              <Input
+                type="date"
+                name="startdate"
+                id="startdate"
+                {...getFieldProps('startdate')}
+              />
+              {touched.startdate && errors.startdate ? (
+                <div style={{ color: 'red' }}>{errors.startdate}</div>
               ) : null}
             </CustomFormControl>
             <CustomFormControl>
-              <FormLabel htmlFor="email">Task description</FormLabel>
-              <Input type="date" />
-              {touched.password && errors.password ? (
-                <div style={{ color: 'red' }}>{errors.password}</div>
+              <FormLabel htmlFor="enddate">Task expected finish date</FormLabel>
+              <Input
+                type="date"
+                name="enddate"
+                id="enddate"
+                {...getFieldProps('enddate')}
+              />
+              {touched.enddate && errors.enddate ? (
+                <div style={{ color: 'red' }}>{errors.enddate}</div>
               ) : null}
             </CustomFormControl>
           </Box>

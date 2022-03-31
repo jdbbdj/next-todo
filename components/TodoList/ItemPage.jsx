@@ -2,7 +2,7 @@ import React from 'react'
 import { Table, Thead, Tbody, Tr, Th, Td, TableCaption } from '@chakra-ui/react'
 import ActionComponents from '../ActionComponents'
 
-const ItemPage = ({ posts }) => {
+const ItemPage = ({ posts, toggleModal, modal }) => {
   return (
     <>
       <Table
@@ -25,17 +25,27 @@ const ItemPage = ({ posts }) => {
         </Thead>
 
         <Tbody>
-          {posts.map(item => (
-            <Tr key={item.id}>
-              <Td>{item.tasktitle}</Td>
-              <Td>{item.description}</Td>
-              <Td>{item.startdate}</Td>
-              <Td>{item.enddate}</Td>
-              <Td>
-                <ActionComponents />
-              </Td>
+          {posts.length !== 0 ? (
+            posts?.map(item => (
+              <Tr key={item.id}>
+                <Td>{item.tasktitle}</Td>
+                <Td>{item.description}</Td>
+                <Td>{item.startdate}</Td>
+                <Td>{item.enddate}</Td>
+                <Td>
+                  <ActionComponents
+                    item={item}
+                    toggleModal={toggleModal}
+                    modal={modal}
+                  />
+                </Td>
+              </Tr>
+            ))
+          ) : (
+            <Tr>
+              <Td colSpan={5}>No Records Found</Td>
             </Tr>
-          ))}
+          )}
         </Tbody>
       </Table>
     </>

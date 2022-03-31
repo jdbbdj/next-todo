@@ -8,7 +8,7 @@ import { fetchTasks } from '../../redux/actions/taskAction'
 import { useDispatch, useSelector } from 'react-redux'
 import { useToastHook } from '../ToastComponent.jsx'
 
-const TodoList = () => {
+const TodoList = ({ toggleModal, modal }) => {
   const INITIAL_DATA = dummyData
   const logs = useSelector(state => state.taskReducer.tasks)
 
@@ -45,7 +45,7 @@ const TodoList = () => {
         setSearchReports={setSearchReports}
         setSearchInput={setSearchInput}
       />
-      <ItemPage posts={currentPosts} />
+      <ItemPage posts={currentPosts} toggleModal={toggleModal} modal={modal} />
       <Pagination
         postperPage={postperPage}
         totalPosts={posts.length}
