@@ -14,15 +14,20 @@ import {
   MenuList,
   MenuButton,
   IconButton,
-  useColorModeValue
+  useColorModeValue,
+  Button
 } from '@chakra-ui/react'
 import { HamburgerIcon } from '@chakra-ui/icons'
 import ThemeButton from './theme-toggle'
 import { useRouter } from 'next/router'
+import { useSelector, dispatch, useDispatch } from 'react-redux'
+import { useToastHook } from './ToastComponent.jsx'
+import { userLogout } from '../redux/actions/userAction'
 
 const LinkItem = ({ href, path, children }) => {
   const active = path === href
   const inactiveColor = useColorModeValue('gray.700', 'blue.50')
+
   return (
     <NextLink href={href}>
       <Link
@@ -39,7 +44,17 @@ const LinkItem = ({ href, path, children }) => {
 const Navbar = props => {
   const { path } = props
   const router = useRouter()
-  console.log(router.asPath)
+  const tokenSelector = useSelector(state => state.userReducer.token)
+  const [toast, newToast] = useToastHook()
+  const dispatch = useDispatch()
+  const tokenHandler = () => {
+    dispatch(userLogout(tokenSelector, newToast))
+
+    const redirect = () => {
+      router.push('/')
+    }
+    setTimeout(redirect, 1500)
+  }
   return (
     <Box
       bg={useColorModeValue('blue.50', 'gray.700')}
@@ -131,13 +146,10 @@ const Navbar = props => {
               flexGrow={1}
               alignItems="center"
               mt={{ base: 1, md: 0 }}
-            >
-              <LinkItem href="/stats" path={path}>
-                Stats
-              </LinkItem>
-            </Stack>
+            ></Stack>
 
             <Box flex={1} align="right">
+              <Button onClick={e => tokenHandler()}>Logout</Button>
               <ThemeButton />
               <Box ml={2} display={{ base: 'inline-block', md: 'none' }}>
                 <Menu>

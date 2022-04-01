@@ -7,7 +7,11 @@ import {
   Container,
   Grid,
   GridItem,
-  useColorModeValue
+  useColorModeValue,
+  Stack,
+  Link,
+  Text,
+  Box
 } from '@chakra-ui/react'
 import { useFormik } from 'formik'
 import INITIAL_VALUES from '../components/form/models/todoModel'
@@ -16,7 +20,7 @@ import FormComponent from '../components/form'
 import { useRouter } from 'next/router'
 import { useState, useMemo, useEffect } from 'react'
 import TodoList from '../components/TodoList'
-import { CloseIcon } from '@chakra-ui/icons'
+import { CloseIcon, CheckCircleIcon, TimeIcon } from '@chakra-ui/icons'
 import { useDispatch, useSelector } from 'react-redux'
 import { useToastHook } from '../components/ToastComponent.jsx'
 import NotifyComponent from '../components/NotifyComponent'
@@ -140,38 +144,51 @@ const TodoApp = () => {
                 <CloseIcon onClick={handleCloseModal} />
               </GridItem>
               <ModalBody>
-                <Grid
-                  templateColumns="repeat(4, 1fr)"
-                  templateRows="repeat(8, 1fr)"
+                <Box
+                  p={4}
+                  display={{ md: 'flex' }}
+                  maxWidth="32rem"
+                  borderWidth={1}
+                  margin={2}
                 >
-                  <GridItem colSpan={1} rowSpan={2}>
-                    Task Name
-                  </GridItem>
-                  <GridItem colSpan={2} rowSpan={2}>
-                    {modalData.tasktitle}
-                  </GridItem>
-                  <GridItem colSpan={1} rowSpan={2}>
-                    Task Name
-                  </GridItem>
-                  <GridItem colSpan={1} rowSpan={2}>
-                    Description
-                  </GridItem>
-                  <GridItem colSpan={3} rowSpan={2}>
-                    {modalData.description}
-                  </GridItem>
-                  <GridItem colSpan={1} rowSpan={2}>
-                    Start Date
-                  </GridItem>
-                  <GridItem colSpan={3} rowSpan={2}>
-                    {modalData.startdate}
-                  </GridItem>
-                  <GridItem colSpan={1} rowSpan={2}>
-                    Target End Date
-                  </GridItem>
-                  <GridItem colSpan={3} rowSpan={2}>
-                    {modalData.enddate}
-                  </GridItem>
-                </Grid>
+                  {modalData.done ? (
+                    <CheckCircleIcon color="green" />
+                  ) : (
+                    <TimeIcon color="red" />
+                  )}
+                  <Stack
+                    align={{ base: 'center', md: 'stretch' }}
+                    textAlign={{ base: 'center', md: 'left' }}
+                    mt={{ base: 4, md: 0 }}
+                    ml={{ md: 6 }}
+                  >
+                    <Text
+                      fontWeight="bold"
+                      textTransform="uppercase"
+                      fontSize="lg"
+                      letterSpacing="wide"
+                      color="teal.600"
+                    >
+                      {modalData.tasktitle}
+                    </Text>
+                    <Text
+                      my={1}
+                      display="block"
+                      fontSize="md"
+                      lineHeight="normal"
+                      fontWeight="semibold"
+                      href="#"
+                    >
+                      {modalData.description}
+                    </Text>
+                    <Text my={2} color="gray.500">
+                      {modalData.startdate}
+                    </Text>
+                    <Text my={2} color="gray.500">
+                      {modalData.enddate}
+                    </Text>
+                  </Stack>
+                </Box>
               </ModalBody>
             </ModalContent>
           </Modal>
@@ -194,7 +211,7 @@ const TodoApp = () => {
                     {modalData.tasktitle}
                   </GridItem>
                   <GridItem colSpan={1} rowSpan={2}>
-                    Task Name
+                    {modalData.done ? <CheckCircleIcon /> : <TimeIcon />}
                   </GridItem>
                   <GridItem colSpan={1} rowSpan={2}>
                     Description
@@ -207,24 +224,18 @@ const TodoApp = () => {
                   </GridItem>
                   <GridItem colSpan={3} rowSpan={2}>
                     {modalData.startdate}
-                    1997-01-02
                   </GridItem>
                   <GridItem colSpan={1} rowSpan={2}>
                     Target End Date
                   </GridItem>
                   <GridItem colSpan={3} rowSpan={2}>
                     {modalData.enddate}
-                    1997-01-02
                   </GridItem>
                   <GridItem colSpan={2} rowSpan={1} align="center">
                     <Button>Cancel</Button>
                   </GridItem>
                   <GridItem colSpan={2} rowSpan={1} align="center">
-                    <Button
-                      bg={useColorModeValue('black', 'white')}
-                      color={useColorModeValue('white', 'black')}
-                      onClick={e => handleDeleteTask(modalData.id)}
-                    >
+                    <Button onClick={e => handleDeleteTask(modalData.id)}>
                       Delete
                     </Button>
                   </GridItem>

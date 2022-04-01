@@ -8,14 +8,16 @@ import { useRouter } from 'next/router'
 import { userRegister } from '../redux/actions/userAction'
 import { Heading } from '@chakra-ui/react'
 import { useDispatch } from 'react-redux'
+import { useToastHook } from '../components/ToastComponent.jsx'
 
 const Register = () => {
   const router = useRouter()
   const dispatch = useDispatch()
   const [initialValues, setInitialValues] = useState(INITIAL_VALUES)
+  const [toast, newToast] = useToastHook()
 
   const loginClick = values => {
-    dispatch(userRegister(values))
+    dispatch(userRegister(values, newToast))
     router.push('/success')
   }
 

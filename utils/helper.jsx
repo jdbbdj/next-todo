@@ -1,5 +1,5 @@
 import moment from 'moment'
-export const fileNameReqex = /^[A-Za-z0-9_]+$/
+export const fileNameReqex = /^[a-zA-Z0-9_]+( [a-zA-Z0-9_]+)*$/
 export const passWordReqex =
   /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/
 

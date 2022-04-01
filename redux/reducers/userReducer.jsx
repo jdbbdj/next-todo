@@ -49,6 +49,26 @@ const userReducer = (state = initialState, action) => {
         email: action.payload.token.original.user.email,
         isLoggedin: true
       }
+    case 'USER_LOGOUT_ERROR':
+      return {
+        ...state,
+        success: false,
+        loading: false,
+        fail: true
+      }
+    case 'USER_LOGOUT_LOADING':
+      return { ...state, success: false, loading: true, fail: false }
+    case 'USER_LOGOUT_SUCCESS':
+      return {
+        ...state,
+        success: false,
+        loading: true,
+        fail: false,
+        token: '',
+        user: '',
+        email: '',
+        isLoggedin: false
+      }
     default: // need this for default case
       return state
   }

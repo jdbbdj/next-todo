@@ -7,6 +7,10 @@ const Layout = ({ children, router }) => {
     <Box as="main" pb={8}>
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta
+          httpEquiv="Content-Security-Policy"
+          content="upgrade-insecure-requests"
+        ></meta>
         <title>Next Todo App Frontend - James Daryl Bertiz</title>
         <link rel="icon" type="image/png" href="/favicon.ico" />
       </Head>
