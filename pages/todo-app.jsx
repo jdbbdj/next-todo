@@ -61,6 +61,7 @@ const TodoApp = () => {
     values['id'] = modalData.id
 
     if (values.id == null || values.id == 'undefined') {
+      values['done'] = false
       dispatch(generateTask(values, newToast))
       toggleModal('generate', false)
       toggleModal('deleteReport', false)
