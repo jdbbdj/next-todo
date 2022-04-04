@@ -1,6 +1,7 @@
 import React from 'react'
 import { Table, Thead, Tbody, Tr, Th, Td, TableCaption } from '@chakra-ui/react'
 import ActionComponents from '../ActionComponents'
+import { CircularProgress, CircularProgressLabel } from '@chakra-ui/react'
 
 const ItemPage = ({ posts, toggleModal, modal }) => {
   return (
@@ -43,7 +44,9 @@ const ItemPage = ({ posts, toggleModal, modal }) => {
             ))
           ) : (
             <Tr>
-              <Td colSpan={5}>No Records Found</Td>
+              <Td colSpan={5}>
+                <CircularProgress isIndeterminate color="green.300" />
+              </Td>
             </Tr>
           )}
         </Tbody>

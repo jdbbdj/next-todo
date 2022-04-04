@@ -47,7 +47,7 @@ const FormComponent = ({ isLogin, isTodo, isRegister, formik }) => {
               ) : null}
             </CustomFormControl>
             <CustomFormControl>
-              <FormLabel htmlFor="email">Email address</FormLabel>
+              <FormLabel htmlFor="password">Password</FormLabel>
               <Input
                 type="password"
                 name="password"
