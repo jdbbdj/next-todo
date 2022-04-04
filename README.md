@@ -1,1 +1,1 @@
-![Vercel](https://therealsujitk-vercel-badge.vercel.app/?app={next-todo})
+![Vercel](https://vercel.com/jdbbdj/next-todo/?app={next-todo})
