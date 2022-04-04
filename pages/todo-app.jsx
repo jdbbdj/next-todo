@@ -63,16 +63,10 @@ const TodoApp = () => {
     if (values.id == null || values.id == 'undefined') {
       values['done'] = false
       dispatch(generateTask(values, newToast))
-      toggleModal('generate', false)
-      toggleModal('deleteReport', false)
-      toggleModal('view', false)
-      toggleModal('modalData', {})
+      handleCloseModal()
     } else {
       dispatch(updateTask(values, newToast))
-      toggleModal('generate', false)
-      toggleModal('deleteReport', false)
-      toggleModal('view', false)
-      toggleModal('modalData', {})
+      handleCloseModal()
     }
   }
 
@@ -95,10 +89,7 @@ const TodoApp = () => {
 
   const handleDeleteTask = id => {
     dispatch(deleteTask(id, newToast))
-    toggleModal('generate', false)
-    toggleModal('deleteReport', false)
-    toggleModal('view', false)
-    resetForm()
+    handleCloseModal()
   }
 
   return (
