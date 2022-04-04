@@ -1,2 +1,2 @@
-![Vercel](https://next-todo-9kxcccghx-jdbbdj.vercel.app//?app={next-todo})
+![Vercel](https://next-todo-9kxcccghx-jdbbdj.vercel.app/?app={next-todo})
 
